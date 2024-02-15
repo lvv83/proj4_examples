@@ -55,3 +55,17 @@ class TransformTest(unittest.TestCase):
         gsk11_point = self._transformFacade.wgs84_to_gsk11(wgs84_point)
         self.assertAlmostEqual(gsk11_point[0], self.gsk11_x, places=6)
         self.assertAlmostEqual(gsk11_point[1], self.gsk11_y, places=6)
+
+    def test_p42_gsk11(self):
+        p42_point = (self.p42_x, self.p42_y)
+        gsk11_point = self._transformFacade.p42_to_gsk11(p42_point)
+        self.assertAlmostEqual(gsk11_point[0], self.gsk11_x, places=6)
+        self.assertAlmostEqual(gsk11_point[1], self.gsk11_y, places=6)
+
+    def test_gsk11_p42(self):
+        gsk11_point = (self.gsk11_x, self.gsk11_y)
+        p42_point = self._transformFacade.gsk11_to_p42(gsk11_point)
+        self.assertAlmostEqual(p42_point[0], self.p42_x, places=6)
+        self.assertAlmostEqual(p42_point[1], self.p42_y, places=6)
+
+

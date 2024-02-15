@@ -24,3 +24,9 @@ class TransformFacade:
 
     def wgs84_to_gsk11(self, point_xy_tuple):
         return do_transform(self.wgs84_crs, self.gsk11_crs, point_xy_tuple[0], point_xy_tuple[1])
+
+    def p42_to_gsk11(self, point_xy_tuple):
+        return do_transform(self.p42_crs, self.gsk11_crs, point_xy_tuple[0], point_xy_tuple[1])
+
+    def gsk11_to_p42(self, point_xy_tuple):
+        return do_transform(self.gsk11_crs, self.p42_crs, point_xy_tuple[0], point_xy_tuple[1])
