@@ -3,6 +3,7 @@ from transform_facade import TransformFacade
 
 
 class TransformTest(unittest.TestCase):
+
     # Контрольные точки СТО Роскартография 3.5-2020 (Приложение Ж)
 
     wgs84_x = 44.03420944  # 44° 02' 03,154"
@@ -28,6 +29,8 @@ class TransformTest(unittest.TestCase):
     # 44.034212122
     # 56.291805285
 
+    # =============================================================================================================
+
     # Контрольные точки пункта ГГС "Язель"
 
     # МСК-11 Зона 4
@@ -42,14 +45,20 @@ class TransformTest(unittest.TestCase):
     # 9482976.292
     # 6869725.201
 
+    # =============================================================================================================
+
     # Контрольная точка из 5-ой зоны МСК
 
     # МСК-11 Зона 5
     msk11_q5_x = 5289418.39
     msk11_q5_y = 848024.02
 
-    wgs84_msk11_q5_x = 53.8017766
-    wgs84_msk11_q5_y = 63.6162694
+    # Координаты пересчитаны с помощью Proj4Net (https://github.com/shanhuashuiqing/proj4net)
+    # Рядом закомментированы координаты от А. С. с разбежкой в 4,5 знаках
+    wgs84_msk11_q5_x = 53.8016706475  # 53.8017766
+    wgs84_msk11_q5_y = 63.6162921557  # 63.6162694
+
+    # =============================================================================================================
 
     @classmethod
     def setUpClass(cls):
@@ -98,7 +107,6 @@ class TransformTest(unittest.TestCase):
         self.assertAlmostEqual(gsk_point[0], self.gsk11_gk_q9_x, places=2)
         self.assertAlmostEqual(gsk_point[1], self.gsk11_gk_q9_y, places=2)
 
-    @unittest.skip  # Расхождение в 4 и 5 знаке после запятой
     def test_msk11q5_wgs84(self):
         msk_point = (self.msk11_q5_x, self.msk11_q5_y)
         wgs84_point = self._transformFacade.msk11q5_to_wgs84(msk_point)
