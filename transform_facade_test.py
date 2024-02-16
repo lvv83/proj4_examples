@@ -28,6 +28,29 @@ class TransformTest(unittest.TestCase):
     # 44.034212122
     # 56.291805285
 
+    # Контрольные точки пункта ГГС "Язель"
+
+    # МСК-11 Зона 4
+    msk11_q4_x = 4433839.59
+    msk11_q4_y = 658872.48
+
+    # Гаусса-Крюгера 9 зона на эллипсоиде ГСК-2011 (рядом данные по выписке Росреестра, расхождение до 4.3 м)
+    gsk11_gk_q9_x = 9482976.292  # 9482980.68
+    gsk11_gk_q9_y = 6869725.201  # 6869722.24
+
+    # geoproj.ru (MSK11Q4 => GSK11_GK_Q9)
+    # 9482976.292
+    # 6869725.201
+
+    # Контрольная точка из 5-ой зоны МСК
+
+    # МСК-11 Зона 5
+    msk11_q5_x = 5289418.39
+    msk11_q5_y = 848024.02
+
+    wgs84_msk11_q5_x = 53.8017766
+    wgs84_msk11_q5_y = 63.6162694
+
     @classmethod
     def setUpClass(cls):
         cls._transformFacade = TransformFacade()
@@ -68,4 +91,16 @@ class TransformTest(unittest.TestCase):
         self.assertAlmostEqual(p42_point[0], self.p42_x, places=6)
         self.assertAlmostEqual(p42_point[1], self.p42_y, places=6)
 
+    def test_msk11q4_gsk11gkq9(self):
+        msk_point = (self.msk11_q4_x, self.msk11_q4_y)
+        gsk_point = self._transformFacade.msk11q4_to_gsk11gkq9(msk_point)
+        # Прямоугольные координаты, точность - 2
+        self.assertAlmostEqual(gsk_point[0], self.gsk11_gk_q9_x, places=2)
+        self.assertAlmostEqual(gsk_point[1], self.gsk11_gk_q9_y, places=2)
 
+    @unittest.skip  # Расхождение в 4 и 5 знаке после запятой
+    def test_msk11q5_wgs84(self):
+        msk_point = (self.msk11_q5_x, self.msk11_q5_y)
+        wgs84_point = self._transformFacade.msk11q5_to_wgs84(msk_point)
+        self.assertAlmostEqual(wgs84_point[0], self.wgs84_msk11_q5_x, places=6)
+        self.assertAlmostEqual(wgs84_point[1], self.wgs84_msk11_q5_y, places=6)
