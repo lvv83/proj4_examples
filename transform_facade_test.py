@@ -1,5 +1,5 @@
 import unittest
-from transform_facade import TransformFacade
+from transform_facade import TransformFacade, do_pipeline_transform
 
 
 class TransformTest(unittest.TestCase):
@@ -112,3 +112,26 @@ class TransformTest(unittest.TestCase):
         wgs84_point = self._transformFacade.msk11q5_to_wgs84(msk_point)
         self.assertAlmostEqual(wgs84_point[0], self.wgs84_msk11_q5_x, places=6)
         self.assertAlmostEqual(wgs84_point[1], self.wgs84_msk11_q5_y, places=6)
+
+    def test_pipeline(self):
+        msk_point = (self.msk11_q5_x, self.msk11_q5_y)
+        p42_point = self._transformFacade.msk11q5_to_p42(msk_point)
+
+        # Меняем знаки у параметров поворота так, как это принято для метода "Coordinate Frame"
+        # +towgs84=23.57,-140.95,-79.8,0,-0.35,-0.79,-0.22
+
+        # Устанавливаем метод преобразования
+        # convention=coordinate_frame
+
+        pipeline = ('proj=pipeline step proj=unitconvert xy_in=deg xy_out=rad step proj=push v_3 step proj=cart '
+                    'ellps=krass step proj=helmert x=23.57 y=-140.95 z=-79.8 rx=0 ry=-0.35 rz=-0.79 s=-0.22 '
+                    'convention=coordinate_frame step inv proj=cart ellps=WGS84 step proj=pop v_3 step '
+                    'proj=unitconvert xy_in=rad xy_out=deg')
+
+        wgs84_point = do_pipeline_transform(pipeline, p42_point[0], p42_point[1])
+        self.assertAlmostEqual(wgs84_point[0], self.wgs84_msk11_q5_x, places=6)
+        self.assertAlmostEqual(wgs84_point[1], self.wgs84_msk11_q5_y, places=6)
+
+
+if __name__ == '__main__':
+    unittest.main()

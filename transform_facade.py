@@ -8,6 +8,12 @@ def do_transform(from_crs, to_crs, x, y):
     return transformer.transform(x, y)
 
 
+def do_pipeline_transform(pipeline, x, y):
+    transformer = Transformer.from_pipeline(pipeline)
+    print('TRANSFORM:', transformer)
+    return transformer.transform(x, y)
+
+
 class TransformFacade:
     wgs84_crs = CRS.from_proj4(WGS84)
     p42_crs = CRS.from_proj4(P42)
@@ -51,6 +57,8 @@ class TransformFacade:
     def msk11q5_to_wgs84(self, point_xy_tuple):
         p42 = self.msk11q5_to_p42(point_xy_tuple)
         return self.p42_to_wgs84(p42)
+
+
 
 
 
