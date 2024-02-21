@@ -1,6 +1,9 @@
+# Идентификаторы строк построенты по принципу
+# <ЭЛЛИПСОИД>
+# или
+# <ЭЛЛИПСОИД>_<ПРОЕКЦИЯ>_<ЗОНА>
+
 WGS84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-# P42 = '+proj=longlat +ellps=krass +towgs84=25,-141,-78.5,0,0.35,0.736,0 +no_defs'
-# 23.57, -140.95, -79.8, 0.0, -0.35, -0.79, -0.22
 
 # Coordinate frame rotation
 # P42 = '+proj=longlat +ellps=krass +towgs84=23.57,-140.95,-79.8,0,-0.35,-0.79,-0.22 +no_defs'
@@ -42,8 +45,8 @@ GSK11_GK_Q9 = ('+proj=tmerc +lat_0=0 +lon_0=51 +k=1 +x_0=9500000 +y_0=0 +ellps=G
 
 # Местные системы координат Республики Коми (шестиградусные)
 
-MSK11_Q4 = ('+proj=tmerc +lat_0=0 +lon_0=50.03333333333 +k=1 +x_0=4400000.0 +y_0=-6211057.63 +ellps=krass +units=m '
-            '+no_defs')
+P42_MSK11_Q4 = ('+proj=tmerc +lat_0=0 +lon_0=50.03333333333 +k=1 +x_0=4400000.0 +y_0=-6211057.63 +ellps=krass '
+                '+towgs84=23.57,-140.95,-79.8,0,0.35,0.79,-0.22 +units=m +no_defs')
 
-MSK11_Q5 = ('+proj=tmerc +lat_0=0 +lon_0=56.03333333333 +k=1 +x_0=5400000.0 +y_0=-6211057.63 +ellps=krass +units=m '
-            '+no_defs')
+P42_MSK11_Q5 = ('+proj=tmerc +lat_0=0 +lon_0=56.03333333333 +k=1 +x_0=5400000.0 +y_0=-6211057.63 +ellps=krass '
+                '+towgs84=23.57,-140.95,-79.8,0,0.35,0.79,-0.22 +units=m +no_defs')
