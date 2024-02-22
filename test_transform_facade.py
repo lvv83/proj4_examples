@@ -2,7 +2,7 @@ import unittest
 from transform_facade import TransformFacade, do_pipeline_transform
 
 
-class TransformTest(unittest.TestCase):
+class TestTransformFacade(unittest.TestCase):
 
     # Контрольные точки СТО Роскартография 3.5-2020 (Приложение Ж)
 

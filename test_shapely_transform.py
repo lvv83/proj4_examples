@@ -14,7 +14,7 @@ def create_wgs84_p42_pyproj_transform():
     return transformer.transform
 
 
-class ShapelyTransformTest(unittest.TestCase):
+class TestShapelyTransform(unittest.TestCase):
     # Контрольные точки СТО Роскартография 3.5-2020 (Приложение Ж)
 
     wgs84_x = 44.03420944  # 44° 02' 03,154"
