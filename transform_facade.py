@@ -34,9 +34,6 @@ class TransformFacade:
     def wgs84_to_gsk11(self, point_xy_tuple):
         return do_transform(self.wgs84_crs, self.gsk11_crs, point_xy_tuple[0], point_xy_tuple[1])
 
-    def wgs84_to_msk11q4(self, point_xy_tuple):
-        return do_transform(self.wgs84_crs, self.msk11q4_crs, point_xy_tuple[0], point_xy_tuple[1])
-
     def p42_to_gsk11(self, point_xy_tuple):
         return do_transform(self.p42_crs, self.gsk11_crs, point_xy_tuple[0], point_xy_tuple[1])
 
@@ -59,6 +56,9 @@ class TransformFacade:
 
     def msk11q4_to_wgs84(self, point_xy_tuple):
         return do_transform(self.msk11q4_crs, self.wgs84_crs, point_xy_tuple[0], point_xy_tuple[1])
+
+    def wgs84_to_msk11q4(self, point_xy_tuple):
+        return do_transform(self.wgs84_crs, self.msk11q4_crs, point_xy_tuple[0], point_xy_tuple[1])
 
     def msk11q5_to_wgs84(self, point_xy_tuple):
         return do_transform(self.msk11q5_crs, self.wgs84_crs, point_xy_tuple[0], point_xy_tuple[1])
