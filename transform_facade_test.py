@@ -47,7 +47,7 @@ class TransformTest(unittest.TestCase):
 
     # =============================================================================================================
 
-    # Контрольная точка из 5-ой зоны МСК
+    # Контрольная точка из 5-ой зоны МСК11
 
     # МСК-11 Зона 5
     msk11_q5_x = 5289418.39
@@ -57,6 +57,17 @@ class TransformTest(unittest.TestCase):
     # Рядом закомментированы координаты от А. С. с разбежкой в 4,5 знаках
     wgs84_msk11_q5_x = 53.8016706475  # 53.8017766
     wgs84_msk11_q5_y = 63.6162921557  # 63.6162694
+
+    # =============================================================================================================
+
+    # Контрольная точка из 4-ой зоны МСК11 от А. С.
+
+    # МСК-11 Зона 4
+    sa_msk11_q4_x = 4442499.0447
+    sa_msk11_q4_y = 629037.2421
+
+    sa_wgs84_x = 50.83369907
+    sa_wgs84_y = 61.66640579
 
     # =============================================================================================================
 
@@ -131,6 +142,19 @@ class TransformTest(unittest.TestCase):
         wgs84_point = do_pipeline_transform(pipeline, p42_point[0], p42_point[1])
         self.assertAlmostEqual(wgs84_point[0], self.wgs84_msk11_q5_x, places=6)
         self.assertAlmostEqual(wgs84_point[1], self.wgs84_msk11_q5_y, places=6)
+
+    def test_wgs84_msk11q4_sa(self):
+        wgs84_point = (self.sa_wgs84_x, self.sa_wgs84_y)  # (50.83369907, 61.66640579)
+        msk11q4_point = self._transformFacade.wgs84_to_msk11q4(wgs84_point)
+        # Прямоугольные координаты. Точность - 2
+        self.assertAlmostEqual(msk11q4_point[0], self.sa_msk11_q4_x, places=2)
+        self.assertAlmostEqual(msk11q4_point[1], self.sa_msk11_q4_y, places=2)
+
+    def test_msk11q4_wgs84_sa(self):
+        msk11q4_point = (self.sa_msk11_q4_x, self.sa_msk11_q4_y)  # (4442499.0447, 629037.2421)
+        wgs84_point = self._transformFacade.msk11q4_to_wgs84(msk11q4_point)
+        self.assertAlmostEqual(wgs84_point[0], self.sa_wgs84_x, places=6)
+        self.assertAlmostEqual(wgs84_point[1], self.sa_wgs84_y, places=6)
 
 
 if __name__ == '__main__':
